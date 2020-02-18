@@ -1,4 +1,4 @@
-package com.example.api;
+package com.authapi;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
