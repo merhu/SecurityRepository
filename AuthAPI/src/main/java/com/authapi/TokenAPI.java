@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/token") //http://localhost:8081/api/token
 public class TokenAPI {
-	//JWTUtil jwtUtil = new JWTMockUtil();
+	
 	JWTUtil jwtUtil = new JWTHelper();
 	
 	@PostMapping(consumes = "application/json")
