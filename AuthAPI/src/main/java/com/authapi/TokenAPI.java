@@ -9,30 +9,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.webage.util.JWTHelper;
+
 @RestController
-@RequestMapping("/api/token") //http://localhost:8081/api/token
+@RequestMapping("/token") //http://localhost:8081/account/token
 public class TokenAPI {
-	
-	JWTUtil jwtUtil = new JWTHelper();
 	
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<?> getToken(@RequestBody TokenRequestData tokenRequestData) throws IOException {
 		
-		String username = tokenRequestData.getUsername();
+		String username = tokenRequestData.getName();
 		String password = tokenRequestData.getPassword();
-		String scopes = tokenRequestData.getScopes();
 		
 		if (username != null && username.length() > 0 
 				&& password != null && password.length() > 0 
 				&& Authenticator.checkPassword(username, password)) {
-			Token token = jwtUtil.createToken(scopes);
+			String token = JWTHelper.createToken("test");
 			ResponseEntity<?> response = ResponseEntity.ok(token);
 			return response;			
 		}
 		// bad request
-		return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		
+		return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();		
 	}
-	
-	
 }
