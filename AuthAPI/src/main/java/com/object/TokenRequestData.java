@@ -2,14 +2,29 @@ package com.object;
 
 public class TokenRequestData {
 
-	String name, pass, scope;
+	String name, password, scope;
 
-	public TokenRequestData(String name, String pass, String scope) {
+	public TokenRequestData() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public TokenRequestData(String name, String password, String scope) {
 		super();
 		this.name = name;
-		this.pass = pass;
+		this.password = password;
 		this.scope = scope;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "TokenRequestData [name=" + name + ", password=" + password + ", scope=" + scope + "]";
+	}
+
+
 
 	public String getName() {
 		return name;
@@ -19,12 +34,12 @@ public class TokenRequestData {
 		this.name = name;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getScope() {
@@ -34,5 +49,9 @@ public class TokenRequestData {
 	public void setScope(String scope) {
 		this.scope = scope;
 	}
+	
 
+	
+
+	
 }

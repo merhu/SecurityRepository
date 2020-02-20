@@ -27,7 +27,7 @@ public class JWTHelper {
 		        .withClaim("scopes", scopes)
 		        .withExpiresAt(expireDate)
 		        .sign(algorithm);
-		    return token;
+		    return "\"" + token + "\"";
 		} catch (JWTCreationException exception){
 			return null;
 		}	
