@@ -1,12 +1,10 @@
-package com.authapi;
+package com.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import org.json.JSONObject;
 
 public class Authenticator {
 	private static String name, pass;
@@ -21,32 +19,24 @@ public class Authenticator {
 		con.connect();
 		String input, data = null;
 		String[] inputLine;
-	    String delimiters = ",|\"|:"; // "\\s+|,\\s*|\\.\\s*";
+		String delimiters = ",|\"|:";
+		
 		if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-			System.out.println("Connection established");
+			System.out.println("Get connection established");
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			//do {
-				System.out.println("Receiving from database");
-				
+			System.out.println("Receiving from database");
 
-			    while ((input = in.readLine()) != null) {
-			        data = input;
-			    }
+			while ((input = in.readLine()) != null) {
+				data = input;
+			}
+			
+			if (data != null) {
 				System.out.println("Data received: " + data);
-				
 				inputLine = data.split(delimiters);
-
-				/*
-				int x = 0;
-		        for (String a : inputLine) {
-		            System.out.println("Index: " + x++ + " string: " + a); 
-		        }*/
-				
 				name = inputLine[8];
 				pass = inputLine[14];
-
+			}
 		}
-
 		if( (username != null && username.length() > 0) &&
 				(username.equalsIgnoreCase(name))) {
 			return true;

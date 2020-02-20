@@ -1,4 +1,4 @@
-package com.authapi;
+package com.object;
 
 public class Token {
 	String token;
