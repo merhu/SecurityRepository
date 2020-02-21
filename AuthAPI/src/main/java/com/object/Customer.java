@@ -4,11 +4,17 @@ public class Customer {
 
 	int id;
 	private String name;
-	private String pass;
+	private String password;
 	private String email;
 
 	
 	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public int getId() {
 		return id;
 	}
@@ -24,18 +30,12 @@ public class Customer {
 	public String getEmail() {
 		return email;
 	}
-	public String getPass() {
-		return pass;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	@Override
 	public String toString() {
-		return "{\"name\": \"" + name + "\",\"pass\": \"" + pass + "\",\"email\": \"" + email + "\"}";
+		return "{\"name\": \"" + name + "\",\"password\": \"" + password + "\",\"email\": \"" + email + "\"}";
 	}
 
 }

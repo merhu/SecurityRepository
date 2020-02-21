@@ -7,11 +7,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Authenticator {
-	private static String name, pass;
+	private static String name, password;
+	static String strURL = null;
 
 	public static boolean checkUser(String username) throws IOException {
 		//verify name with database
-		URL obj = new URL("http://localhost:8080/api/customers/" + username);
+		strURL = System.getenv("apicustomersaddress");
+
+		if (strURL == null) {
+			strURL = "localhost:8080";
+		}
+		URL obj = new URL("http://" + strURL + "/api/customers/"+ username);
 		System.out.println(obj);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -34,7 +40,7 @@ public class Authenticator {
 				System.out.println("Data received: " + data);
 				inputLine = data.split(delimiters);
 				name = inputLine[8];
-				pass = inputLine[14];
+				password = inputLine[14];
 			}
 		}
 		if( (username != null && username.length() > 0) &&
@@ -46,12 +52,12 @@ public class Authenticator {
 		}
 	}
 
-	public static boolean checkPassword(String username, String password) throws IOException {
-		if(checkUser(username) && (password.equalsIgnoreCase(pass))) {
+	public static boolean checkPassword(String username, String oldPassword) throws IOException {
+		if(checkUser(username) && (oldPassword.equalsIgnoreCase(password))) {
 			System.out.println("User has been authenticated");
 			return true;
 		} else {
-			System.out.println("passed in: " + password + "\ndatabase name: " + pass);
+			System.out.println("passed in: " + oldPassword + "\ndatabase name: " + password);
 			return false;
 		}
 	}

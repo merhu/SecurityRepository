@@ -20,7 +20,7 @@ public class CustomerFactory {
 		cust.setName(name);
 		cust.setId(id);
 		cust.setEmail(email);
-		cust.setPass(password);
+		cust.setPassword(password);
 		return cust;
 	}
 	
@@ -30,7 +30,7 @@ public class CustomerFactory {
         // putting data to JSONObject 
         jo.put("name", customer.getName()); 
         jo.put("email", customer.getEmail());
-        jo.put("password", customer.getPass());
+        jo.put("password", customer.getPassword());
         jo.put("id", customer.getId());
         
         String out = jo.toString();

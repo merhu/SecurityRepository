@@ -24,6 +24,8 @@ import com.object.CustomerFactory;
 @RequestMapping("/register")
 public class RegisterController {
 
+	static String strURL = null;
+
 	@PostMapping
 	public ResponseEntity<?> registerCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri) throws Exception {
 		if (newCustomer.getId() != 0 || newCustomer.getName() == null || newCustomer.getEmail() == null) {
@@ -39,8 +41,11 @@ public class RegisterController {
 
 	private void postNewCustomerToCustomerAPI(String json_string) {
 		try {
-
-			URL url = new URL("http://localhost:8080/api/customers");
+			strURL = System.getenv("apicustomersaddress");
+			if (strURL == null) {
+				strURL = "localhost:8080";
+			}
+			URL url = new URL("http://" + strURL + "/api/customers");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
