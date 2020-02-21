@@ -1,0 +1,21 @@
+node {
+	stage('Checkout') {
+		git url: 'https://github.com/merhu/SecurityRepository'
+	}
+	
+	stage('Gradle build') {
+		bat 'gradle build -x test'
+	}
+	
+	stage('UAT') {
+		def response= input message: 'Is this build good to go?',
+		parameters: [choice(choices: 'Yes\nNo',
+		description: '', name: 'Pass')]
+		
+		if (response=="Yes") {
+			stage('Deploy') {
+				bat 'gradle build -x test'
+			}
+		}
+	}
+}
