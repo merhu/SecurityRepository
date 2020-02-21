@@ -20,7 +20,7 @@ public class Authenticator {
 		String input, data = null;
 		String[] inputLine;
 		String delimiters = ",|\"|:";
-		
+
 		if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			System.out.println("Get connection established");
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -29,7 +29,7 @@ public class Authenticator {
 			while ((input = in.readLine()) != null) {
 				data = input;
 			}
-			
+
 			if (data != null) {
 				System.out.println("Data received: " + data);
 				inputLine = data.split(delimiters);

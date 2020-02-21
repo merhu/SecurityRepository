@@ -20,7 +20,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.object.Customer;
 import com.object.CustomerFactory;
 
-
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
@@ -28,7 +27,6 @@ public class RegisterController {
 	@PostMapping
 	public ResponseEntity<?> registerCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri) throws Exception {
 		if (newCustomer.getId() != 0 || newCustomer.getName() == null || newCustomer.getEmail() == null) {
-			// Reject we'll assign the customer id
 			return ResponseEntity.badRequest().build();
 		}
 		String json_string = CustomerFactory.getCustomerAsJSONString(newCustomer);
@@ -47,17 +45,12 @@ public class RegisterController {
 			conn.setDoOutput(true);
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", "application/json");
-	  		String token = TokenController.getAppUserToken();
-	  		conn.setRequestProperty("authorization", "Bearer " + token);
-	  		// conn.setRequestProperty("tokencheck", "false");
+			String token = TokenController.getAppUserToken();
+			conn.setRequestProperty("authorization", "Bearer " + token);
 
 			OutputStream os = conn.getOutputStream();
 			os.write(json_string.getBytes());
 			os.flush();
-/*
-			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-			}*/
 
 			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
